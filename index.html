@@ -39,7 +39,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 h1{font-size:clamp(20px,5vw,26px);margin:0;font-weight:900;letter-spacing:-.3px}
 h1 .cjk{font-weight:700}
 .stars{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:900;white-space:nowrap;box-shadow:var(--shadow)}
-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);padding:5px;border-radius:18px;border:1px solid var(--line);position:sticky;top:8px;z-index:5;box-shadow:var(--shadow)}
+nav{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;background:var(--card);padding:5px;border-radius:18px;border:1px solid var(--line);position:sticky;top:8px;z-index:5;box-shadow:var(--shadow)}
 nav button{border:0;background:transparent;padding:9px 2px;border-radius:13px;font-weight:800;color:var(--muted);font-size:14px;display:flex;flex-direction:column;align-items:center;gap:1px}
 nav button span{font-size:20px;line-height:1}
 nav button.on{background:var(--accent);color:#fff}
@@ -128,6 +128,47 @@ h2{font-size:18px;margin:0 0 10px;font-weight:900}
 .tile.done{background:var(--ok);border-color:var(--ok);color:#fff;opacity:.35;box-shadow:none;pointer-events:none}
 .tile.bad{background:var(--bad);border-color:var(--bad);color:#fff;animation:shake .35s}
 .stat{font-weight:900}
+@media (max-width:600px){nav{grid-template-columns:repeat(3,1fr)}}
+
+/* big numbers */
+.btab{width:100%;border-collapse:collapse;font-size:15px}
+.btab td,.btab th{padding:8px 6px;border-bottom:1px dashed var(--line);text-align:left;vertical-align:top}
+.btab th{font-size:12px;color:var(--muted);text-transform:uppercase}
+.btab td.n{font-weight:900;white-space:nowrap}
+.btab .cell{cursor:pointer}
+.btab .cell b{font-size:20px;font-weight:700;display:block}
+.btab .cell span{font-size:12px;color:var(--muted)}
+
+/* time */
+.clock .face{fill:var(--card);stroke:var(--ink);stroke-width:3}
+.clock .tick{stroke:var(--muted);stroke-width:1.5}
+.clock .tick.h{stroke:var(--ink);stroke-width:3}
+.clock .num{fill:var(--ink);font:800 10px Nunito,sans-serif;text-anchor:middle;dominant-baseline:central}
+.clock .hh{stroke:var(--ink);stroke-width:4.5;stroke-linecap:round}
+.clock .mh{stroke:var(--accent);stroke-width:3;stroke-linecap:round}
+.clock .dot{fill:var(--accent)}
+.digital{font-size:clamp(34px,10vw,52px);font-weight:900;letter-spacing:1px}
+.nowrow{padding:6px 0}
+.nowrow .cjk{font-size:20px;font-weight:700}
+.tq{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:6px 0}
+.opts.one{grid-template-columns:1fr}
+.opts.one .opt{min-height:60px;font-size:clamp(18px,5vw,24px)}
+
+/* where */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:14px}
+.scard{border:2px solid var(--line);border-radius:18px;padding:8px;text-align:center}
+.scard svg{width:100%;height:auto;display:block}
+.scard .ru{font-weight:900;margin:2px 0 4px}
+.scard .ws{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.scard .ws button{border:0;border-radius:10px;padding:4px 8px;font-size:15px}
+.scene .floor{stroke:var(--line);stroke-width:3}
+.scene .wood{fill:#c08552} .scene .wood2{fill:#9a6638}
+.scene .box{fill:#e0b073;stroke:#a87a3e;stroke-width:2}
+.scene .flap{fill:#d19e5c;stroke:#a87a3e;stroke-width:2}
+.scene text{font-size:34px;text-anchor:middle;font-family:'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif}
+.prompt .scene{width:min(100%,360px);height:auto}
+.opts .opt.pic{padding:4px;min-height:0}
+.opts .opt.pic svg{width:100%;height:auto;display:block}
 .toggles{display:flex;flex-wrap:wrap;gap:8px}
 footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}
 </style>
@@ -142,6 +183,8 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}
   <nav id="nav">
     <button data-p="learn" class="on"><span>📖</span>Учить</button>
     <button data-p="quiz"><span>🎯</span>Викторина</button>
+    <button data-p="time"><span>⏰</span>Время</button>
+    <button data-p="where"><span>📦</span>Где?</button>
     <button data-p="who"><span>🕵️</span>Чей это?</button>
     <button data-p="pairs"><span>🧩</span>Пары</button>
   </nav>
@@ -154,9 +197,14 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}
       <div class="ngrid" id="learnGrid"></div>
       <p class="muted" style="font-size:13px;margin:12px 0 0">Нажми на карточку — услышишь произношение 🔊</p>
     </div>
+    <div class="card">
+      <h2>🐘 Большие числа</h2>
+      <div class="tip" style="margin-top:0"><b>Главный секрет:</b> мы делим число по 3 нуля (1 000 000), а китайцы и корейцы — по <b>4 нуля</b>! 1 0000 = <span class="cjk">万</span> / <span class="ko-f">만</span>, 1 0000 0000 = <span class="cjk">亿</span> / <span class="ko-f">억</span>.<br>Как прочитать 3 500 000: отсчитай 4 цифры с конца → <b>350</b>|0000 → 350 <span class="cjk">万</span> = <span class="cjk">三百五十万</span> / <span class="ko-f">삼백오십만</span>.<br>В корейском 10 000 = просто <span class="ko-f">만</span> (без 일), а 100 000 000 = <span class="ko-f">일억</span>.</div>
+      <div id="bigTable" style="margin-top:8px"></div>
+    </div>
     <div class="card conv">
       <h2>🧮 Как сказать любое число?</h2>
-      <input id="convIn" type="number" inputmode="numeric" min="0" max="99999" value="25" aria-label="Число">
+      <input id="convIn" type="number" inputmode="numeric" min="0" max="999999999999" value="25" aria-label="Число">
       <div id="convOut" style="margin-top:8px"></div>
     </div>
   </section>
@@ -164,6 +212,31 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}
   <!-- QUIZ -->
   <section class="panel" id="p-quiz">
     <div class="card" id="quizBox"></div>
+  </section>
+
+  <!-- TIME -->
+  <section class="panel" id="p-time">
+    <div class="card">
+      <h2>⏰ Сколько сейчас времени?</h2>
+      <div class="row" style="align-items:center;gap:16px">
+        <div id="nowClock" style="flex:none"></div>
+        <div id="nowText" class="grow" style="flex:1;min-width:0"></div>
+      </div>
+      <div class="lbl" style="margin-top:16px">Правила</div>
+      <div id="timeTabs"></div>
+      <div class="tip" id="timeTip"></div>
+    </div>
+    <div class="card" id="timeBox"></div>
+  </section>
+
+  <!-- WHERE -->
+  <section class="panel" id="p-where">
+    <div class="card">
+      <h2>📦 Где лежит? — слова места</h2>
+      <div class="tip" style="margin-top:0" id="whereTip"></div>
+      <div class="sgrid" id="whereGrid"></div>
+    </div>
+    <div class="card" id="whereBox"></div>
   </section>
 
   <!-- WHO -->
@@ -214,8 +287,28 @@ const KOU = { 10: W('십','sip','сип'), 100: W('백','baek','пэк'), 1000: 
 const KN = [null,W('하나','hana','хана'),W('둘','dul','туль'),W('셋','set','сэт'),W('넷','net','нэт'),W('다섯','daseot','тасот'),W('여섯','yeoseot','ёсот'),W('일곱','ilgop','ильгоп'),W('여덟','yeodeol','ёдоль'),W('아홉','ahop','ахоп')];
 const KNT = [null,W('열','yeol','ёль'),W('스물','seumul','сымуль'),W('서른','seoreun','сорын'),W('마흔','maheun','махын'),W('쉰','swin','свин'),W('예순','yesun','есун'),W('일흔','ilheun','ильхын'),W('여든','yeodeun','ёдын'),W('아흔','aheun','ахын')];
 
-const valid = (lang, n) => lang === 'kn' ? n >= 1 && n <= 99 : n >= 0 && n <= 99999;
+const valid = (lang, n) => lang === 'kn' ? n >= 1 && n <= 99 : n >= 0 && n <= MAXN && Number.isInteger(n);
 
+const MAXN = 999999999999;
+const BIGU = { cn: { 8: W('亿','yì','и'), 4: W('万','wàn','вань') }, ko: { 8: W('억','eok','ок'), 4: W('만','man','ман') } };
+// one group of 1..9999
+function groupParts(isCN, x, firstGroup) {
+  const D = isCN ? CN : KO, U = isCN ? CNU : KOU, parts = [];
+  let rem = x, started = false, gap = false;
+  for (const u of [1000, 100, 10]) {
+    const d = Math.floor(rem / u); rem %= u;
+    if (d) {
+      if (gap && isCN) parts.push(D[0]);
+      gap = false;
+      const omitOne = d === 1 && (isCN ? (u === 10 && !started && firstGroup) : true);
+      if (!omitOne) parts.push(D[d]);
+      parts.push(U[u]);
+      started = true;
+    } else if (started) gap = true;
+  }
+  if (rem) { if (gap && isCN) parts.push(D[0]); parts.push(D[rem]); }
+  return parts;
+}
 function compose(lang, n) {
   const sep = LANGS[lang].sep;
   let parts = [];
@@ -224,42 +317,47 @@ function compose(lang, n) {
     if (t) parts.push(KNT[t]);
     if (u) parts.push(KN[u]);
   } else {
-    const isCN = lang === 'cn', D = isCN ? CN : KO, U = isCN ? CNU : KOU;
+    const isCN = lang === 'cn', D = isCN ? CN : KO;
     if (n === 0) parts = [D[0]];
     else {
-      let rem = n, started = false, gap = false;
-      for (const u of [10000, 1000, 100, 10]) {
-        const d = Math.floor(rem / u); rem %= u;
-        if (d) {
-          if (gap && isCN) parts.push(D[0]);
-          gap = false;
-          const omitOne = d === 1 && (isCN ? (u === 10 && !started) : true);
-          if (!omitOne) parts.push(D[d]);
-          parts.push(U[u]);
-          started = true;
-        } else if (started) gap = true;
+      let started = false, prevZero = false;
+      for (const [g, e] of [[Math.floor(n / 1e8), 8], [Math.floor(n / 1e4) % 1e4, 4], [n % 1e4, 0]]) {
+        if (g) {
+          if (isCN && started && (prevZero || g < 1000)) parts.push(D[0]);
+          if (!(!isCN && e === 4 && g === 1)) parts.push(...groupParts(isCN, g, !started));
+          if (e) parts.push(BIGU[lang][e]);
+          started = true; prevZero = false;
+        } else if (started) prevZero = true;
       }
-      if (rem) { if (gap && isCN) parts.push(D[0]); parts.push(D[rem]); }
     }
   }
   return { lang, n, w: parts.map(p => p.w).join(''), r: parts.map(p => p.r).join(sep), ru: parts.map(p => p.ru).join('-') };
 }
+const join = (toks, lang) => ({ lang, w: toks.map(t => t.w).join(lang === 'cn' ? '' : ' '), r: toks.map(t => t.r).join(' '), ru: toks.map(t => t.ru).join(' ') });
 
 const BASE = { cn: [0,1,2,3,4,5,6,7,8,9,10,100,1000,10000], ko: [0,1,2,3,4,5,6,7,8,9,10,100,1000,10000], kn: [1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90] };
 const RANGES = {
   base: { name: '0–10' },
   round: { name: '10, 20… 100, 1000' },
   comp: { name: '11–99' },
-  hard: { name: '100–9999' }
+  hard: { name: '100–9999' },
+  huge: { name: 'Огромные (万/만, 亿/억)' }
 };
 function pickN(lang, range) {
   if (range === 'base') return lang === 'kn' ? rnd(1, 10) : rnd(0, 10);
   if (range === 'round') return pick(lang === 'kn' ? [10,20,30,40,50,60,70,80,90] : [10,20,30,40,50,60,70,80,90,100,1000,10000]);
   if (range === 'comp') return rnd(11, 99);
+  if (range === 'huge' && lang !== 'kn') {
+    const d = Math.random() < .5 ? rnd(1, 9) : rnd(11, 99);
+    return d * 10 ** rnd(d < 10 ? 4 : 3, d < 10 ? 9 : 8);
+  }
   return lang === 'kn' ? rnd(11, 99) : (Math.random() < .5 ? rnd(100, 999) : rnd(1000, 9999));
 }
 function distractors(lang, range, n, k) {
   const out = new Set();
+  if (range === 'huge' && lang !== 'kn') {
+    for (const c of shuffle([n * 10, n / 10, n * 100, n / 100, n * 1000])) { if (out.size >= 2) break; if (Number.isInteger(c) && c >= 1000 && c <= MAXN) out.add(c); }
+  }
   const s = String(n);
   const sim = shuffle([n + 1, n - 1, n + 10, n - 10, n + 2, n - 2, +s.split('').reverse().join(''), n * 10, Math.floor(n / 10), n + 100, n - 100]);
   if (range === 'comp' || range === 'hard') for (const c of sim) { if (out.size >= Math.ceil(k / 2) + 1) break; if (c !== n && valid(lang, c) && c > 0) out.add(c); }
@@ -347,7 +445,7 @@ function renderConv() {
   const v = $('#convIn').value.trim();
   const n = Math.floor(Number(v));
   const out = $('#convOut');
-  if (v === '' || isNaN(n) || n < 0 || n > 99999) { out.innerHTML = '<p class="muted">Введи число от 0 до 99 999</p>'; return; }
+  if (v === '' || isNaN(n) || n < 0 || n > MAXN) { out.innerHTML = '<p class="muted">Введи число от 0 до 999 999 999 999</p>'; return; }
   out.innerHTML = Object.keys(LANGS).map(l => {
     if (!valid(l, n)) return `<div class="crow"><span class="tag t-${l}">${LANGS[l].flag}</span><div class="grow muted">${l === 'kn' ? 'родные корейские бывают только 1–99' : '—'}</div></div>`;
     const it = compose(l, n);
@@ -387,11 +485,11 @@ function quizNext() {
   let lang, n, dir;
   if (qs.queue) { ({ lang, n } = qs.queue[qs.i]); }
   else {
-    lang = Q.set === 'all' ? pick(['cn', 'ko', 'kn']) : Q.set;
+    lang = Q.set === 'all' ? pick(Q.range === 'huge' ? ['cn', 'ko'] : ['cn', 'ko', 'kn']) : Q.set;
     n = pickN(lang, Q.range);
   }
   dir = Q.dir === 'mix' ? pick(['n2w', 'w2n']) : Q.dir;
-  const range = qs.queue ? (n <= 10 ? 'base' : n <= 99 ? 'comp' : 'hard') : Q.range;
+  const range = qs.queue ? (n <= 10 ? 'base' : n <= 99 ? 'comp' : n <= 9999 ? 'hard' : 'huge') : Q.range;
   const it = compose(lang, n);
   const opts = shuffle([n, ...distractors(lang, range, n, 3)]);
   qs.cur = { it, dir };
@@ -556,8 +654,275 @@ function pairsWin() {
   box.append(r, nb);
 }
 
+/* ================= BIG NUMBERS ================= */
+function renderBig() {
+  const rows = [10000, 100000, 1000000, 10000000, 100000000, 1000000000, 35000, 3500000, 120000000];
+  $('#bigTable').innerHTML = `<table class="btab"><tr><th>Число</th><th>中文</th><th>한국어</th></tr>${rows.map((n, i) => {
+    const c = compose('cn', n), k = compose('ko', n);
+    return `${i === 6 ? '<tr><th colspan="3" style="padding-top:14px">Примеры</th></tr>' : ''}<tr><td class="n">${fmt(n)}</td><td class="cell" data-l="cn" data-w="${c.w}"><b class="cjk">${c.w}</b><span>${esc(c.r)}</span></td><td class="cell" data-l="ko" data-w="${k.w}"><b class="ko-f">${k.w}</b><span>${esc(k.r)}</span></td></tr>`;
+  }).join('')}</table>`;
+}
+$('#bigTable').addEventListener('click', e => { const c = e.target.closest('.cell'); if (c) speak(c.dataset.w, c.dataset.l, true); });
+
+/* ================= TIME ================= */
+const KN_HOUR = [null,W('한','han','хан'),W('두','du','ту'),W('세','se','се'),W('네','ne','не'),W('다섯','daseot','тасот'),W('여섯','yeoseot','ёсот'),W('일곱','ilgop','ильгоп'),W('여덟','yeodeol','ёдоль'),W('아홉','ahop','ахоп'),W('열','yeol','ёль'),W('열한','yeolhan','ёрхан'),W('열두','yeoldu','ёльту')];
+const TW = { si: W('시','si','си'), bun: W('분','bun','пун'), ban: W('반','ban','пан'), dian: W('点','diǎn','дянь'), fen: W('分','fēn','фэнь'), half: W('半','bàn','бань'), liang: W('两','liǎng','лян') };
+function period(lang, H) {
+  if (lang === 'ko') return H < 12 ? W('오전','ojeon','оджон') : W('오후','ohu','оху');
+  return H < 6 ? W('凌晨','língchén','линчэнь') : H < 12 ? W('上午','shàngwǔ','шанъу') : H < 13 ? W('中午','zhōngwǔ','чжунъу') : H < 18 ? W('下午','xiàwǔ','сяу') : W('晚上','wǎnshang','ваньшан');
+}
+function timeSay(lang, H, M, o = {}) {
+  const t = [], h12 = H % 12 || 12;
+  if (o.period) t.push(period(lang, H));
+  if (lang === 'ko') {
+    t.push(o.sinoHour ? compose('ko', h12) : KN_HOUR[h12], TW.si);
+    if (M === 30 && !o.nativeMin) t.push(TW.ban);
+    else if (M) t.push(o.nativeMin ? compose('kn', M) : compose('ko', M), TW.bun);
+  } else {
+    t.push(h12 === 2 && !o.er ? TW.liang : compose('cn', h12), TW.dian);
+    if (M === 30) t.push(TW.half);
+    else if (M) { if (M < 10) t.push(CN[0]); t.push(compose('cn', M), TW.fen); }
+  }
+  return join(t, lang);
+}
+function timeAlt(lang, H, M, per) {
+  const base = timeSay(lang, H, 0, { period: per }).w;
+  if (lang === 'ko') {
+    if (M === 30) return base + ' 삼십 분';
+    if (M === 0) return base + ' 정각';
+  } else {
+    if (M === 30) return base + '三十分';
+    if (M === 15) return base + '一刻';
+    if (M === 45) return base + '三刻';
+    if (M === 0) return base + '整';
+  }
+  return '';
+}
+const pad = m => String(m).padStart(2, '0');
+const digital = (H, M, per) => (per ? H : (H % 12 || 12)) + ':' + pad(M);
+function clockSVG(H, M, size = 120) {
+  const f = x => x.toFixed(2);
+  let s = `<svg class="clock" viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-label="${digital(H, M, true)}"><circle class="face" cx="50" cy="50" r="46"/>`;
+  for (let i = 0; i < 60; i++) {
+    const a = i * Math.PI / 30, h = i % 5 === 0, r1 = h ? 38 : 41.5;
+    s += `<line class="tick${h ? ' h' : ''}" x1="${f(50 + r1 * Math.sin(a))}" y1="${f(50 - r1 * Math.cos(a))}" x2="${f(50 + 44 * Math.sin(a))}" y2="${f(50 - 44 * Math.cos(a))}"/>`;
+  }
+  for (const k of [12, 3, 6, 9]) { const a = k * Math.PI / 6; s += `<text class="num" x="${f(50 + 30 * Math.sin(a))}" y="${f(50 - 30 * Math.cos(a))}">${k}</text>`; }
+  s += `<line class="hh" x1="50" y1="50" x2="50" y2="27" transform="rotate(${f(((H % 12) + M / 60) * 30)} 50 50)"/><line class="mh" x1="50" y1="50" x2="50" y2="13" transform="rotate(${M * 6} 50 50)"/><circle class="dot" cx="50" cy="50" r="3.5"/></svg>`;
+  return s;
+}
+const TIME_TIPS = {
+  ko: `<b>Часы — родными</b> корейскими числами (сокращёнными!): 1 <span class="ko-f">한 시</span>, 2 <span class="ko-f">두 시</span>, 3 <span class="ko-f">세 시</span>, 4 <span class="ko-f">네 시</span>, 5 <span class="ko-f">다섯 시</span> … 11 <span class="ko-f">열한 시</span>, 12 <span class="ko-f">열두 시</span>.<br><b>Минуты — сино-корейскими:</b> <span class="ko-f">오 분, 이십오 분</span>. 30 минут = <span class="ko-f">반</span> (половина). Ровно = <span class="ko-f">정각</span>.<br><span class="ko-f">오전</span> — до полудня, <span class="ko-f">오후</span> — после полудня. Ставятся в начало: <span class="ko-f">오후 세 시 이십오 분</span> = 15:25.<br>❌ Частая ошибка: <span class="ko-f">삼 시</span> — так нельзя, только <span class="ko-f">세 시</span>! И минуты не <span class="ko-f">스물다섯 분</span>, а <span class="ko-f">이십오 분</span>.`,
+  cn: `<b><span class="cjk">点</span> (diǎn)</b> = час, <b><span class="cjk">分</span> (fēn)</b> = минута: <span class="cjk">三点二十五分</span> = 3:25.<br>2 часа = <span class="cjk">两点</span> (а не 二点!).<br>30 минут = <span class="cjk">半</span>: <span class="cjk">三点半</span>. 15 минут = <span class="cjk">一刻</span>, 45 = <span class="cjk">三刻</span>. Ровно = <span class="cjk">整</span>.<br>Минуты меньше 10 — с <span class="cjk">零</span>: <span class="cjk">三点零五分</span>.<br>Время суток — в начале: <span class="cjk">上午</span> утро, <span class="cjk">中午</span> полдень, <span class="cjk">下午</span> после обеда, <span class="cjk">晚上</span> вечер, <span class="cjk">凌晨</span> глубокая ночь. <span class="cjk">下午三点</span> = 15:00.`
+};
+let timeTipLang = LS.get('timeTip', 'ko');
+function renderTimeLearn() {
+  const t = $('#timeTabs'); t.innerHTML = '';
+  t.appendChild(chipGroup([['ko', '🇰🇷 Корейский'], ['cn', '🇨🇳 Китайский']], timeTipLang, k => { timeTipLang = k; LS.set('timeTip', k); renderTimeLearn(); }));
+  $('#timeTip').innerHTML = TIME_TIPS[timeTipLang];
+}
+let lastNow = '';
+function renderNow() {
+  const d = new Date(), H = d.getHours(), M = d.getMinutes(), key = H + ':' + M;
+  if (key === lastNow) return; lastNow = key;
+  $('#nowClock').innerHTML = clockSVG(H, M, 104);
+  $('#nowText').innerHTML = `<div class="digital">${H}:${pad(M)}</div>` + ['ko', 'cn'].map(l => {
+    const s = timeSay(l, H, M, { period: true });
+    return `<div class="nowrow row" style="gap:8px;flex-wrap:nowrap"><button class="say" data-l="${l}" data-w="${s.w}">🔊</button><div style="min-width:0"><div class="cjk">${s.w}</div><div class="muted" style="font-size:13px">${esc(s.r)}</div></div></div>`;
+  }).join('');
+}
+$('#nowText').addEventListener('click', e => { const b = e.target.closest('.say'); if (b) speak(b.dataset.w, b.dataset.l, true); });
+
+const TQ = Object.assign({ lang: 'ko', min: 'five', period: false, dir: 't2w' }, LS.get('timeCfg', {}));
+const TS = { score: 0, total: 0, streak: 0 };
+function wrapH(H, d) { return TQ.period ? (H + d + 24) % 24 : ((H - 1 + d + 24) % 12) + 1; }
+function timeVariants(H, M) {
+  const v = [[wrapH(H, 1), M], [wrapH(H, -1), M], [H, (M + pick([5, 10, 15, 20])) % 60], [H, (M + 60 - pick([5, 10, 15])) % 60], [wrapH(H, pick([2, 3])), M]];
+  if (M === 30) v.push([H, 0]); else v.push([H, 30]);
+  if (TQ.period) v.push([(H + 12) % 24, M], [(H + 12) % 24, M]);
+  return shuffle(v);
+}
+function timeSetupChips(box) {
+  const save = () => LS.set('timeCfg', { lang: TQ.lang, min: TQ.min, period: TQ.period, dir: TQ.dir });
+  const wrap = document.createElement('div');
+  const add = (t, el) => { const l = document.createElement('div'); l.className = 'lbl'; l.textContent = t; wrap.append(l, el); };
+  add('Язык', chipGroup([['ko', '🇰🇷 Корейский'], ['cn', '🇨🇳 Китайский']], TQ.lang, k => { TQ.lang = k; save(); timeNext(); }));
+  add('Минуты', chipGroup([['easy', 'Ровно и :30'], ['five', 'Через 5 мин'], ['any', 'Любые']], TQ.min, k => { TQ.min = k; save(); timeNext(); }));
+  add('Режим', chipGroup([['t2w', '🕒 → слова'], ['w2t', 'слова → 🕒']], TQ.dir, k => { TQ.dir = k; save(); timeNext(); }));
+  const tg = document.createElement('div'); tg.className = 'toggles';
+  const per = document.createElement('button'); per.className = 'chip' + (TQ.period ? ' on' : ''); per.textContent = '🌗 Утро/вечер (오전/오후, 上午/下午)';
+  per.onclick = () => { TQ.period = !TQ.period; save(); timeNext(); };
+  tg.append(per, toggleChip('💡 Подсказка-чтение', 'hints', timeNext));
+  add('Дополнительно', tg);
+  const det = document.createElement('details'); det.style.marginTop = '14px';
+  det.innerHTML = '<summary class="muted" style="cursor:pointer;font-weight:800">⚙️ Настройки</summary>'; det.appendChild(wrap);
+  det.open = LS.get('timeOpen', true); det.ontoggle = () => LS.set('timeOpen', det.open);
+  box.appendChild(det);
+}
+function timeNext() {
+  const lang = TQ.lang, per = TQ.period;
+  const H = per ? rnd(0, 23) : rnd(1, 12);
+  const M = TQ.min === 'easy' ? pick([0, 30]) : TQ.min === 'five' ? rnd(0, 11) * 5 : rnd(0, 59);
+  const right = timeSay(lang, H, M, { period: per });
+  const box = $('#timeBox'); box.innerHTML = '';
+  const head = document.createElement('div'); head.className = 'qhead';
+  head.innerHTML = `<h2 style="margin:0">🎯 Тренажёр времени</h2><span class="muted">✅ ${TS.score}/${TS.total}${TS.streak >= 2 ? ' · 🔥' + TS.streak : ''}</span>`;
+  box.appendChild(head);
+  const sunMoon = per ? (H >= 6 && H < 18 ? ' ☀️' : ' 🌙') : '';
+  let opts = [];
+  const prompt = document.createElement('div'); prompt.className = 'prompt';
+  if (TQ.dir === 't2w') {
+    const seen = new Set([right.w]); const cands = [];
+    if (lang === 'ko') {
+      const traps = [{ sinoHour: 1 }]; if (M) traps.push({ nativeMin: 1 });
+      shuffle(traps).forEach(o => cands.push(timeSay(lang, H, M, Object.assign({ period: per }, o))));
+    } else if ((H % 12 || 12) === 2) cands.push(timeSay(lang, H, M, { period: per, er: 1 }));
+    timeVariants(H, M).forEach(([h, m]) => cands.push(timeSay(lang, h, m, { period: per })));
+    for (const c of cands) { if (opts.length >= 3) break; if (!seen.has(c.w)) { seen.add(c.w); opts.push({ ok: false, s: c }); } }
+    opts.push({ ok: true, s: right }); shuffle(opts);
+    prompt.innerHTML = `<div class="tq">${clockSVG(H, M, 130)}<div class="digital">${digital(H, M, per)}${sunMoon}</div></div><div class="q">Как сказать это время?</div>`;
+    box.appendChild(prompt);
+    const o = document.createElement('div'); o.className = 'opts one';
+    o.innerHTML = opts.map((x, i) => `<button class="opt cjk" data-i="${i}">${x.s.w}${S.hints ? `<small>${esc(x.s.r)}</small>` : ''}</button>`).join('');
+    box.appendChild(o);
+  } else {
+    const seen = new Set([digital(H, M, per)]);
+    for (const [h, m] of timeVariants(H, M)) { if (opts.length >= 3) break; const d = digital(h, m, per); if (!seen.has(d)) { seen.add(d); opts.push({ ok: false, H: h, M: m }); } }
+    opts.push({ ok: true, H, M }); shuffle(opts);
+    prompt.innerHTML = `<div class="big cjk" style="font-size:clamp(26px,8vw,42px)">${right.w}</div><div class="hint">${S.hints ? esc(right.r) + ' · «' + esc(right.ru) + '»' : ''}</div><div class="q">Который час?</div>`;
+    box.appendChild(prompt);
+    const o = document.createElement('div'); o.className = 'opts';
+    o.innerHTML = opts.map((x, i) => `<button class="opt" data-i="${i}" style="display:flex;flex-direction:column;align-items:center;gap:4px">${clockSVG(x.H, x.M, 70)}<span>${digital(x.H, x.M, per)}${per ? (x.H >= 6 && x.H < 18 ? ' ☀️' : ' 🌙') : ''}</span></button>`).join('');
+    box.appendChild(o);
+    speak(right.w, lang === 'cn' ? 'cn' : 'ko');
+  }
+  const fb = document.createElement('div'); fb.className = 'fb'; box.appendChild(fb);
+  const tools = document.createElement('div'); tools.className = 'row'; tools.style.marginTop = '12px';
+  tools.innerHTML = `<button class="btn ghost" style="font-size:14px;padding:9px 14px">🔊 Послушать ответ</button>`;
+  tools.firstChild.onclick = () => speak(right.w, lang, true);
+  box.appendChild(tools);
+  timeSetupChips(box);
+  box.querySelector('.opts').onclick = e => {
+    const b = e.target.closest('.opt'); if (!b || b.disabled) return;
+    const ok = opts[+b.dataset.i].ok;
+    box.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (opts[+x.dataset.i].ok) x.classList.add('ok'); });
+    if (!ok) b.classList.add('bad');
+    beep(ok); speak(right.w, lang);
+    TS.total++; if (ok) { TS.score++; TS.streak++; addStar(); } else TS.streak = 0;
+    const alt = timeAlt(lang, H, M, per);
+    let why = '';
+    if (!ok && TQ.dir === 't2w') {
+      const bad = opts[+b.dataset.i].s.w;
+      if (lang === 'ko' && bad === timeSay(lang, H, M, { period: per, sinoHour: 1 }).w) why = '<br>⚠️ Часы говорят <b>родными</b> числами: 세 시, а не 삼 시.';
+      else if (lang === 'ko' && M && bad === timeSay(lang, H, M, { period: per, nativeMin: 1 }).w) why = '<br>⚠️ Минуты — <b>сино-корейскими</b>: 이십오 분, а не 스물다섯 분.';
+      else if (lang === 'cn' && bad.includes('二点')) why = '<br>⚠️ 2 часа = <b>两点</b>, не 二点.';
+    }
+    fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+    fb.innerHTML = `<b>${ok ? pick(['Верно! 🎉', 'Умница! ✨', 'Точно! ⏰']) : 'Не совсем 🙈'}</b> ${digital(H, M, per)} = <span class="cjk">${right.w}</span><br><span style="font-size:14px">${esc(right.r)} · «${esc(right.ru)}»</span>${alt ? `<br><span style="font-size:14px">Ещё можно: <span class="cjk">${alt}</span></span>` : ''}${why}`;
+    const nb = document.createElement('button'); nb.className = 'btn wide'; nb.textContent = 'Дальше →'; nb.onclick = timeNext;
+    fb.after(nb);
+  };
+}
+
+/* ================= WHERE ================= */
+const OBJ = { table: { ko: W('책상','chaeksang','чхэксан'), cn: W('桌子','zhuōzi','чжоцзы') }, box: { ko: W('상자','sangja','санджа'), cn: W('箱子','xiāngzi','сянцзы') }, tree: { ko: W('나무','namu','наму'), cn: W('树','shù','шу') } };
+const POS = [
+  { id: 'on', ru: 'на, сверху', obj: 'table', ko: W('위','wi','ви'), koE: 'wie', cn: W('上面','shàngmian','шанмянь'), rs: 'Кошка на столе' },
+  { id: 'under', ru: 'под', obj: 'table', ko: W('아래','arae','арэ'), koE: 'araee', cn: W('下面','xiàmian','сямянь'), rs: 'Кошка под столом' },
+  { id: 'front', ru: 'перед, спереди', obj: 'tree', ko: W('앞','ap','ап'), koE: 'ape', cn: W('前面','qiánmian','цяньмянь'), rs: 'Кошка перед деревом' },
+  { id: 'behind', ru: 'за, сзади', obj: 'tree', ko: W('뒤','dwi','тви'), koE: 'dwie', cn: W('后面','hòumian','хоумянь'), rs: 'Кошка за деревом' },
+  { id: 'next', ru: 'рядом, сбоку', obj: 'table', ko: W('옆','yeop','ёп'), koE: 'yeope', cn: W('旁边','pángbiān','пханбянь'), rs: 'Кошка рядом со столом' },
+  { id: 'left', ru: 'слева', obj: 'table', ko: W('왼쪽','oenjjok','вэнччок'), koE: 'oenjjoge', cn: W('左边','zuǒbian','цзобянь'), rs: 'Кошка слева от стола' },
+  { id: 'right', ru: 'справа', obj: 'table', ko: W('오른쪽','oreunjjok','орынччок'), koE: 'oreunjjoge', cn: W('右边','yòubian','ёубянь'), rs: 'Кошка справа от стола' },
+  { id: 'in', ru: 'в, внутри', obj: 'box', ko: W('안','an','ан'), koE: 'ane', cn: W('里面','lǐmian','лимянь'), rs: 'Кошка в коробке' },
+  { id: 'out', ru: 'снаружи, вне', obj: 'box', ko: W('밖','bak','пак'), koE: 'bakke', cn: W('外面','wàimian','ваймянь'), rs: 'Кошка снаружи коробки' },
+  { id: 'between', ru: 'между', obj: 'box', ko: W('사이','sai','саи'), koE: 'saie', cn: W('中间','zhōngjiān','чжунцзянь'), rs: 'Кошка между коробками' }
+];
+const SIDE = ['next', 'left', 'right', 'out'];
+function posSentence(p, lang) {
+  const o = OBJ[p.obj][lang];
+  if (lang === 'ko') return p.id === 'between'
+    ? { w: '고양이가 상자 사이에 있어요', r: 'goyangiga sangja saie isseoyo' }
+    : { w: `고양이가 ${o.w} ${p.ko.w}에 있어요`, r: `goyangiga ${o.r} ${p.koE} isseoyo` };
+  return p.id === 'between'
+    ? { w: '猫在两个箱子中间。', r: 'māo zài liǎng ge xiāngzi zhōngjiān' }
+    : { w: `猫在${o.w}${p.cn.w}。`, r: `māo zài ${o.r} ${p.cn.r}` };
+}
+function sceneSVG(id, side = 1) {
+  const cat = (x, y, s) => `<text x="${x}" y="${y}" style="font-size:${s}px">🐱</text>`;
+  const floor = '<line class="floor" x1="4" y1="125" x2="196" y2="125"/>';
+  const table = '<rect class="wood" x="55" y="64" width="90" height="9" rx="2"/><rect class="wood2" x="62" y="73" width="7" height="52"/><rect class="wood2" x="131" y="73" width="7" height="52"/>';
+  const tree = '<text x="100" y="121" style="font-size:112px">🌳</text>';
+  const box = (x, y, w, h) => `<rect class="box" x="${x}" y="${y}" width="${w}" height="${h}" rx="2"/><line stroke="#a87a3e" stroke-width="2" x1="${x + w / 2}" y1="${y}" x2="${x + w / 2}" y2="${y + 14}"/>`;
+  const openBox = inner => `<rect x="62" y="70" width="76" height="8" fill="#6e4a22"/>${inner}<rect class="box" x="62" y="75" width="76" height="50" rx="2"/><polygon class="flap" points="62,75 40,62 56,52 78,71"/><polygon class="flap" points="138,75 160,62 144,52 122,71"/>`;
+  let s = floor;
+  switch (id) {
+    case 'on': s += table + cat(100, 60, 34); break;
+    case 'under': s += table + cat(100, 121, 30); break;
+    case 'front': s += tree + cat(100, 146, 46); break;
+    case 'behind': s += cat(136, 72, 30) + tree; break;
+    case 'next': s += table + cat(side > 0 ? 152 : 48, 121, 32); break;
+    case 'left': s += table + cat(16, 121, 26) + '<text x="16" y="146" style="font-size:16px">⬅️</text>'; break;
+    case 'right': s += table + cat(184, 121, 26) + '<text x="184" y="146" style="font-size:16px">➡️</text>'; break;
+    case 'in': s += openBox(cat(100, 90, 40)); break;
+    case 'out': s += openBox('') + cat(side > 0 ? 178 : 22, 121, 30); break;
+    case 'between': s += box(8, 80, 56, 45) + box(136, 80, 56, 45) + cat(100, 121, 32); break;
+  }
+  return `<svg class="scene" viewBox="0 0 200 150" role="img">${s}</svg>`;
+}
+function renderWhereLearn() {
+  $('#whereTip').innerHTML = `Слово места ставится <b>после</b> предмета — как «стол-верх».<br><b>Корейский:</b> предмет + место + <span class="ko-f">에</span>: <span class="ko-f">책상 위에</span> — на столе. <span class="ko-f">고양이가 책상 위에 있어요</span> — кошка на столе. «Под» = <span class="ko-f">아래</span> или <span class="ko-f">밑</span>.<br><b>Китайский:</b> <span class="cjk">在</span> + предмет + место: <span class="cjk">猫在桌子上面</span> — кошка на столе. Часто сокращают: <span class="cjk">桌子上, 箱子里</span>.<br>Нажми на слово — услышишь 🔊`;
+  $('#whereGrid').innerHTML = POS.map(p => `<div class="scard">${sceneSVG(p.id)}<div class="ru">${p.ru}</div><div class="ws"><button class="t-ko ko-f" data-l="ko" data-w="${p.ko.w}">${p.ko.w} <small>${p.ko.r}</small></button><button class="t-cn cjk" data-l="cn" data-w="${p.cn.w}">${p.cn.w} <small style="font-family:Nunito">${p.cn.r}</small></button></div></div>`).join('');
+}
+$('#whereGrid').addEventListener('click', e => { const b = e.target.closest('button[data-l]'); if (b) speak(b.dataset.w, b.dataset.l, true); });
+const WQ = Object.assign({ lang: 'ko', dir: 'p2w' }, LS.get('whereCfg', {}));
+const WS = { score: 0, total: 0, streak: 0, last: null };
+function whereNext() {
+  const lang = WQ.lang;
+  let p; do { p = pick(POS); } while (p.id === WS.last);
+  WS.last = p.id;
+  const side = pick([-1, 1]);
+  const excl = SIDE.includes(p.id) ? SIDE : [];
+  const opts = shuffle([p, ...shuffle(POS.filter(x => x !== p && !excl.includes(x.id))).slice(0, 3)]);
+  const sent = posSentence(p, lang);
+  const box = $('#whereBox'); box.innerHTML = '';
+  const head = document.createElement('div'); head.className = 'qhead';
+  head.innerHTML = `<h2 style="margin:0">🎯 Где кошка?</h2><span class="muted">✅ ${WS.score}/${WS.total}${WS.streak >= 2 ? ' · 🔥' + WS.streak : ''}</span>`;
+  box.appendChild(head);
+  const save = () => LS.set('whereCfg', { lang: WQ.lang, dir: WQ.dir });
+  const c1 = chipGroup([['ko', '🇰🇷 Корейский'], ['cn', '🇨🇳 Китайский']], WQ.lang, k => { WQ.lang = k; save(); whereNext(); });
+  const c2 = chipGroup([['p2w', '🖼 → слово'], ['w2p', 'фраза → 🖼']], WQ.dir, k => { WQ.dir = k; save(); whereNext(); });
+  c2.style.marginTop = '8px'; box.append(c1, c2);
+  const prompt = document.createElement('div'); prompt.className = 'prompt';
+  const o = document.createElement('div'); o.className = 'opts';
+  if (WQ.dir === 'p2w') {
+    prompt.innerHTML = `${sceneSVG(p.id, side)}<div class="q">Где кошка? Выбери слово</div>`;
+    o.innerHTML = opts.map((x, i) => `<button class="opt cjk" data-i="${i}">${x[lang].w}${S.hints ? `<small>${esc(x[lang].r)}</small>` : ''}</button>`).join('');
+  } else {
+    prompt.innerHTML = `<div class="big cjk" style="font-size:clamp(24px,7vw,38px)">${sent.w}</div><div class="hint">${S.hints ? esc(sent.r) : ''}</div><div class="q">Найди картинку</div>`;
+    o.innerHTML = opts.map((x, i) => `<button class="opt pic" data-i="${i}">${sceneSVG(x.id, side)}</button>`).join('');
+    speak(sent.w, lang);
+  }
+  box.append(prompt, o);
+  const fb = document.createElement('div'); fb.className = 'fb'; box.appendChild(fb);
+  o.onclick = e => {
+    const b = e.target.closest('.opt'); if (!b || b.disabled) return;
+    const ok = opts[+b.dataset.i] === p;
+    o.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (opts[+x.dataset.i] === p) x.classList.add('ok'); });
+    if (!ok) b.classList.add('bad');
+    beep(ok); speak(sent.w, lang);
+    WS.total++; if (ok) { WS.score++; WS.streak++; addStar(); } else WS.streak = 0;
+    fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+    fb.innerHTML = `<b>${ok ? pick(['Верно! 🎉', 'Умница! ✨', 'Мяу! 🐱']) : 'Не совсем 🙈'}</b> <span class="cjk">${p[lang].w}</span> = ${p.ru}<br><span class="cjk">${sent.w}</span><br><span style="font-size:14px">${esc(sent.r)} — ${p.rs}</span>`;
+    const nb = document.createElement('button'); nb.className = 'btn wide'; nb.textContent = 'Дальше →'; nb.onclick = whereNext;
+    fb.after(nb);
+  };
+}
+
 /* ================= init ================= */
-renderLearn(); renderConv(); quizSetup(); whoNext(); pairsStart();
+renderLearn(); renderBig(); renderConv(); quizSetup(); whoNext(); pairsStart();
+renderTimeLearn(); renderNow(); setInterval(renderNow, 10000); timeNext();
+renderWhereLearn(); whereNext();
 const lastTab = LS.get('tab', 'learn');
 const tb = document.querySelector(`#nav button[data-p="${lastTab}"]`); if (tb) tb.click();
 </script>
