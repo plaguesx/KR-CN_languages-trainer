@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Числа 中文 · 한국어</title>
+<meta name="description" content="Тренажёр китайских и корейских числительных: учить, викторина, «чей это?», найди пару.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Noto+Sans+KR:wght@500;700&family=Noto+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff6f1; --card:#ffffff; --ink:#2a2233; --muted:#7c7088; --line:#efe2ea;
+  --accent:#8e4ec6; --accent-soft:#f3e9fb; --ok:#2f9e66; --ok-soft:#e3f6eb; --bad:#e5484d; --bad-soft:#fdeaea;
+  --cn:#e5484d; --cn-soft:#fdecec; --ko:#3e63dd; --ko-soft:#e9eefc; --kn:#0f9a8a; --kn-soft:#e2f5f2;
+  --shadow:0 6px 20px rgba(80,40,90,.08);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17131c; --card:#221c29; --ink:#f2ecf7; --muted:#a99db6; --line:#352c3f;
+  --accent:#b27ce8; --accent-soft:#33264a; --ok:#3fc283; --ok-soft:#1d3a2c; --bad:#ff6b6f; --bad-soft:#4a2228;
+  --cn:#ff7376; --cn-soft:#43242a; --ko:#7d9bff; --ko-soft:#232c4c; --kn:#38d2bd; --kn-soft:#173a36;
+  --shadow:0 6px 20px rgba(0,0,0,.3);
+}}
+:root[data-theme="dark"]{
+  --bg:#17131c; --card:#221c29; --ink:#f2ecf7; --muted:#a99db6; --line:#352c3f;
+  --accent:#b27ce8; --accent-soft:#33264a; --ok:#3fc283; --ok-soft:#1d3a2c; --bad:#ff6b6f; --bad-soft:#4a2228;
+  --cn:#ff7376; --cn-soft:#43242a; --ko:#7d9bff; --ko-soft:#232c4c; --kn:#38d2bd; --kn-soft:#173a36;
+  --shadow:0 6px 20px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:Nunito,system-ui,sans-serif;font-weight:600;-webkit-tap-highlight-color:transparent;line-height:1.4}
+button{font:inherit;color:inherit;cursor:pointer}
+.cjk{font-family:'Noto Sans SC','Noto Sans KR','Microsoft YaHei','Malgun Gothic',sans-serif}
+.ko-f{font-family:'Noto Sans KR','Malgun Gothic',sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 14px}
+h1{font-size:clamp(20px,5vw,26px);margin:0;font-weight:900;letter-spacing:-.3px}
+h1 .cjk{font-weight:700}
+.stars{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:900;white-space:nowrap;box-shadow:var(--shadow)}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);padding:5px;border-radius:18px;border:1px solid var(--line);position:sticky;top:8px;z-index:5;box-shadow:var(--shadow)}
+nav button{border:0;background:transparent;padding:9px 2px;border-radius:13px;font-weight:800;color:var(--muted);font-size:14px;display:flex;flex-direction:column;align-items:center;gap:1px}
+nav button span{font-size:20px;line-height:1}
+nav button.on{background:var(--accent);color:#fff}
+.panel{display:none;margin-top:16px}
+.panel.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.card+.card{margin-top:14px}
+h2{font-size:18px;margin:0 0 10px;font-weight:900}
+.lbl{font-size:13px;color:var(--muted);font-weight:800;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+.lbl:first-child{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--card);padding:7px 13px;border-radius:999px;font-weight:800;font-size:14px}
+.chip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.btn{border:0;background:var(--accent);color:#fff;padding:13px 22px;border-radius:16px;font-weight:900;font-size:17px;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.btn.ghost{background:var(--accent-soft);color:var(--accent);box-shadow:none}
+.btn.wide{width:100%;margin-top:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:900}
+.t-cn{background:var(--cn-soft);color:var(--cn)} .t-ko{background:var(--ko-soft);color:var(--ko)} .t-kn{background:var(--kn-soft);color:var(--kn)}
+.tip{background:var(--accent-soft);border-radius:16px;padding:12px 14px;font-size:15px;margin-top:12px}
+.tip b{font-weight:900}
+
+/* learn */
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;margin-top:14px}
+.ncard{border:2px solid var(--line);border-radius:18px;padding:10px 8px;text-align:center;background:var(--card);transition:transform .1s}
+.ncard:active{transform:scale(.96)}
+.ncard .num{font-size:14px;font-weight:900;color:var(--muted)}
+.ncard .w{font-size:30px;line-height:1.2;margin:2px 0;font-weight:700}
+.ncard .r{font-size:14px;font-weight:800}
+.ncard .ru{font-size:13px;color:var(--muted)}
+.ncard.cn .w{color:var(--cn)} .ncard.ko .w{color:var(--ko)} .ncard.kn .w{color:var(--kn)}
+.conv input{width:100%;font:inherit;font-size:24px;font-weight:900;padding:10px 14px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.conv input:focus{outline:none;border-color:var(--accent)}
+.crow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.crow:last-child{border-bottom:0}
+.crow .tag{flex:none;min-width:58px;justify-content:center}
+.crow .cw{font-size:24px;font-weight:700;word-break:break-all}
+.crow .cr{font-size:13px;color:var(--muted)}
+.crow .grow{flex:1;min-width:0}
+.say{flex:none;border:0;background:var(--accent-soft);color:var(--accent);width:40px;height:40px;border-radius:12px;font-size:18px}
+
+/* quiz */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.prompt{text-align:center;margin:10px 0 6px}
+.prompt .big{font-size:clamp(46px,15vw,84px);font-weight:900;line-height:1.1;word-break:break-word}
+.prompt .big.cjk{font-weight:700}
+.prompt .q{color:var(--muted);font-weight:800;margin-top:4px}
+.prompt .hint{font-size:16px;color:var(--muted);min-height:22px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.opt{min-height:76px;border:2px solid var(--line);background:var(--card);border-radius:18px;font-size:clamp(20px,6vw,28px);font-weight:800;padding:8px;line-height:1.15;word-break:break-word;box-shadow:0 3px 0 var(--line)}
+.opt.cjk{font-weight:700}
+.opt:active{transform:translateY(2px)}
+.opt.ok{background:var(--ok);border-color:var(--ok);color:#fff;box-shadow:none}
+.opt.bad{background:var(--bad);border-color:var(--bad);color:#fff;box-shadow:none;animation:shake .35s}
+.opt[disabled]{cursor:default}
+.opt small{display:block;font-size:12px;font-family:Nunito,sans-serif;font-weight:700;opacity:.75;margin-top:2px}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.fb{margin-top:14px;padding:12px 14px;border-radius:16px;font-size:16px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-soft);color:var(--ok)}
+.fb.bad{background:var(--bad-soft);color:var(--bad)}
+.fb .cjk{font-size:20px}
+.streak{font-weight:900}
+.result{text-align:center}
+.result .big{font-size:64px;font-weight:900;line-height:1}
+.mist{text-align:left;margin-top:14px}
+.mist div{padding:8px 0;border-bottom:1px dashed var(--line)}
+
+/* who */
+.who-opts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
+.who-opts .opt{min-height:58px;font-size:18px;display:flex;align-items:center;justify-content:center;gap:8px}
+.who-opts .opt.c-cn{border-color:var(--cn);color:var(--cn)} .who-opts .opt.c-ko{border-color:var(--ko);color:var(--ko)} .who-opts .opt.c-kn{border-color:var(--kn);color:var(--kn)}
+.who-opts .opt.ok{color:#fff} .who-opts .opt.bad{color:#fff}
+
+/* pairs */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+@media (max-width:520px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+.tile{aspect-ratio:1/1;border:2px solid var(--line);background:var(--card);border-radius:18px;font-size:clamp(18px,6vw,30px);font-weight:900;padding:4px;box-shadow:0 3px 0 var(--line);word-break:break-word;line-height:1.1;transition:opacity .3s,transform .15s}
+.tile.cjk{font-weight:700}
+.tile.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);transform:scale(1.04)}
+.tile.done{background:var(--ok);border-color:var(--ok);color:#fff;opacity:.35;box-shadow:none;pointer-events:none}
+.tile.bad{background:var(--bad);border-color:var(--bad);color:#fff;animation:shake .35s}
+.stat{font-weight:900}
+.toggles{display:flex;flex-wrap:wrap;gap:8px}
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Числа <span class="cjk">中文</span> · <span class="ko-f">한국어</span></h1>
+    <div class="stars" id="stars" title="Всего правильных ответов">⭐ 0</div>
+  </header>
+
+  <nav id="nav">
+    <button data-p="learn" class="on"><span>📖</span>Учить</button>
+    <button data-p="quiz"><span>🎯</span>Викторина</button>
+    <button data-p="who"><span>🕵️</span>Чей это?</button>
+    <button data-p="pairs"><span>🧩</span>Пары</button>
+  </nav>
+
+  <!-- LEARN -->
+  <section class="panel on" id="p-learn">
+    <div class="card">
+      <div class="chips" id="learnTabs"></div>
+      <div class="tip" id="learnTip"></div>
+      <div class="ngrid" id="learnGrid"></div>
+      <p class="muted" style="font-size:13px;margin:12px 0 0">Нажми на карточку — услышишь произношение 🔊</p>
+    </div>
+    <div class="card conv">
+      <h2>🧮 Как сказать любое число?</h2>
+      <input id="convIn" type="number" inputmode="numeric" min="0" max="99999" value="25" aria-label="Число">
+      <div id="convOut" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="panel" id="p-quiz">
+    <div class="card" id="quizBox"></div>
+  </section>
+
+  <!-- WHO -->
+  <section class="panel" id="p-who">
+    <div class="card" id="whoBox"></div>
+  </section>
+
+  <!-- PAIRS -->
+  <section class="panel" id="p-pairs">
+    <div class="card" id="pairsBox"></div>
+  </section>
+
+  <footer>Сделано с ❤️ для сестры · 加油! · 화이팅!</footer>
+</div>
+
+<script>
+/* ================= utils ================= */
+const $ = s => document.querySelector(s);
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem('krcn_' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('krcn_' + k, JSON.stringify(v)); } catch (e) {} }
+};
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = a => a[Math.random() * a.length | 0];
+const rnd = (a, b) => a + (Math.random() * (b - a + 1) | 0);
+const fmt = n => n.toLocaleString('ru-RU');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+const S = Object.assign({ sound: true, voice: true, hints: true }, LS.get('settings', {}));
+const saveS = () => LS.set('settings', S);
+
+let stars = LS.get('stars', 0);
+function addStar() { stars++; LS.set('stars', stars); renderStars(); }
+function renderStars() { $('#stars').textContent = '⭐ ' + stars; }
+renderStars();
+
+/* ================= data ================= */
+const W = (w, r, ru) => ({ w, r, ru });
+const LANGS = {
+  cn: { name: 'Китайский', flag: '🇨🇳', short: '中文', tts: 'zh-CN', sep: ' ' },
+  ko: { name: 'Корейский (сино)', flag: '🇰🇷', short: '일 이 삼', tts: 'ko-KR', sep: '-' },
+  kn: { name: 'Корейский (родной)', flag: '🇰🇷', short: '하나 둘', tts: 'ko-KR', sep: '-' }
+};
+const CN = [W('零','líng','лин'),W('一','yī','и'),W('二','èr','эр'),W('三','sān','сань'),W('四','sì','сы'),W('五','wǔ','у'),W('六','liù','лю'),W('七','qī','ци'),W('八','bā','ба'),W('九','jiǔ','цзю')];
+const CNU = { 10: W('十','shí','ши'), 100: W('百','bǎi','бай'), 1000: W('千','qiān','цянь'), 10000: W('万','wàn','вань') };
+const KO = [W('영','yeong','ён'),W('일','il','иль'),W('이','i','и'),W('삼','sam','сам'),W('사','sa','са'),W('오','o','о'),W('육','yuk','юк'),W('칠','chil','чхиль'),W('팔','pal','пхаль'),W('구','gu','ку')];
+const KOU = { 10: W('십','sip','сип'), 100: W('백','baek','пэк'), 1000: W('천','cheon','чхон'), 10000: W('만','man','ман') };
+const KN = [null,W('하나','hana','хана'),W('둘','dul','туль'),W('셋','set','сэт'),W('넷','net','нэт'),W('다섯','daseot','тасот'),W('여섯','yeoseot','ёсот'),W('일곱','ilgop','ильгоп'),W('여덟','yeodeol','ёдоль'),W('아홉','ahop','ахоп')];
+const KNT = [null,W('열','yeol','ёль'),W('스물','seumul','сымуль'),W('서른','seoreun','сорын'),W('마흔','maheun','махын'),W('쉰','swin','свин'),W('예순','yesun','есун'),W('일흔','ilheun','ильхын'),W('여든','yeodeun','ёдын'),W('아흔','aheun','ахын')];
+
+const valid = (lang, n) => lang === 'kn' ? n >= 1 && n <= 99 : n >= 0 && n <= 99999;
+
+function compose(lang, n) {
+  const sep = LANGS[lang].sep;
+  let parts = [];
+  if (lang === 'kn') {
+    const t = Math.floor(n / 10), u = n % 10;
+    if (t) parts.push(KNT[t]);
+    if (u) parts.push(KN[u]);
+  } else {
+    const isCN = lang === 'cn', D = isCN ? CN : KO, U = isCN ? CNU : KOU;
+    if (n === 0) parts = [D[0]];
+    else {
+      let rem = n, started = false, gap = false;
+      for (const u of [10000, 1000, 100, 10]) {
+        const d = Math.floor(rem / u); rem %= u;
+        if (d) {
+          if (gap && isCN) parts.push(D[0]);
+          gap = false;
+          const omitOne = d === 1 && (isCN ? (u === 10 && !started) : true);
+          if (!omitOne) parts.push(D[d]);
+          parts.push(U[u]);
+          started = true;
+        } else if (started) gap = true;
+      }
+      if (rem) { if (gap && isCN) parts.push(D[0]); parts.push(D[rem]); }
+    }
+  }
+  return { lang, n, w: parts.map(p => p.w).join(''), r: parts.map(p => p.r).join(sep), ru: parts.map(p => p.ru).join('-') };
+}
+
+const BASE = { cn: [0,1,2,3,4,5,6,7,8,9,10,100,1000,10000], ko: [0,1,2,3,4,5,6,7,8,9,10,100,1000,10000], kn: [1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90] };
+const RANGES = {
+  base: { name: '0–10' },
+  round: { name: '10, 20… 100, 1000' },
+  comp: { name: '11–99' },
+  hard: { name: '100–9999' }
+};
+function pickN(lang, range) {
+  if (range === 'base') return lang === 'kn' ? rnd(1, 10) : rnd(0, 10);
+  if (range === 'round') return pick(lang === 'kn' ? [10,20,30,40,50,60,70,80,90] : [10,20,30,40,50,60,70,80,90,100,1000,10000]);
+  if (range === 'comp') return rnd(11, 99);
+  return lang === 'kn' ? rnd(11, 99) : (Math.random() < .5 ? rnd(100, 999) : rnd(1000, 9999));
+}
+function distractors(lang, range, n, k) {
+  const out = new Set();
+  const s = String(n);
+  const sim = shuffle([n + 1, n - 1, n + 10, n - 10, n + 2, n - 2, +s.split('').reverse().join(''), n * 10, Math.floor(n / 10), n + 100, n - 100]);
+  if (range === 'comp' || range === 'hard') for (const c of sim) { if (out.size >= Math.ceil(k / 2) + 1) break; if (c !== n && valid(lang, c) && c > 0) out.add(c); }
+  let guard = 0;
+  while (out.size < k && guard++ < 200) { const c = pickN(lang, range); if (c !== n) out.add(c); }
+  return [...out].slice(0, k);
+}
+
+/* ================= audio ================= */
+let voices = [];
+function loadVoices() { try { voices = speechSynthesis.getVoices(); } catch (e) {} }
+try { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; } catch (e) {}
+function speak(text, lang, force) {
+  if (!S.voice && !force) return;
+  try {
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = LANGS[lang].tts; u.rate = .85;
+    const v = voices.find(v => v.lang.replace('_', '-').toLowerCase().startsWith(u.lang.slice(0, 2).toLowerCase()));
+    if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+let actx;
+function beep(ok) {
+  if (!S.sound) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const t = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
+    o.connect(g); g.connect(actx.destination);
+    if (ok) { o.type = 'sine'; o.frequency.setValueAtTime(660, t); o.frequency.setValueAtTime(990, t + .09); }
+    else { o.type = 'triangle'; o.frequency.setValueAtTime(240, t); o.frequency.setValueAtTime(180, t + .1); }
+    g.gain.setValueAtTime(.12, t); g.gain.exponentialRampToValueAtTime(.001, t + .28);
+    o.start(t); o.stop(t + .3);
+  } catch (e) {}
+}
+
+/* ================= nav ================= */
+$('#nav').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#nav button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'p-' + b.dataset.p));
+  LS.set('tab', b.dataset.p);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+function chipGroup(opts, cur, onPick) {
+  const d = document.createElement('div'); d.className = 'chips';
+  for (const [k, label] of opts) {
+    const b = document.createElement('button'); b.className = 'chip' + (k === cur ? ' on' : ''); b.innerHTML = label;
+    b.onclick = () => { d.querySelectorAll('.chip').forEach(x => x.classList.remove('on')); b.classList.add('on'); onPick(k); };
+    d.appendChild(b);
+  }
+  return d;
+}
+function toggleChip(label, key, after) {
+  const b = document.createElement('button'); b.className = 'chip' + (S[key] ? ' on' : ''); b.innerHTML = label;
+  b.onclick = () => { S[key] = !S[key]; saveS(); b.classList.toggle('on', S[key]); after && after(); };
+  return b;
+}
+const tagHTML = lang => `<span class="tag t-${lang}">${LANGS[lang].flag} ${LANGS[lang].name}</span>`;
+
+/* ================= LEARN ================= */
+const TIPS = {
+  cn: `<b>Китайские числа.</b> Собираются как конструктор: <span class="cjk">十一</span> = 10+1 = 11, <span class="cjk">二十</span> = 2×10 = 20, <span class="cjk">三十五</span> = 35. Ноль внутри числа читается: 105 = <span class="cjk">一百零五</span>. Когда считаешь предметы, 2 = <span class="cjk">两</span> (liǎng): <span class="cjk">两个人</span> — два человека.`,
+  ko: `<b>Сино-корейские</b> (пришли из китайского — похожи!). Для дат, денег, минут, телефонов, номеров. 11 = <span class="ko-f">십일</span>, 20 = <span class="ko-f">이십</span>, 35 = <span class="ko-f">삼십오</span>. Перед <span class="ko-f">십/백/천/만</span> «один» не говорят: 100 = <span class="ko-f">백</span>. Ноль = <span class="ko-f">영</span> или <span class="ko-f">공</span> (в телефонах).`,
+  kn: `<b>Родные корейские.</b> Для счёта предметов, возраста, часов. Бывают только до 99. 25 = <span class="ko-f">스물다섯</span>. Перед счётным словом сокращаются: <span class="ko-f">하나→한, 둘→두, 셋→세, 넷→네, 스물→스무</span> (<span class="ko-f">한 개</span> — одна штука, <span class="ko-f">두 시</span> — два часа).`
+};
+let learnLang = LS.get('learnLang', 'cn');
+function renderLearn() {
+  const tabs = $('#learnTabs'); tabs.innerHTML = '';
+  tabs.appendChild(chipGroup(Object.keys(LANGS).map(k => [k, `${LANGS[k].flag} ${LANGS[k].name}`]), learnLang, k => { learnLang = k; LS.set('learnLang', k); renderLearn(); }));
+  $('#learnTip').innerHTML = TIPS[learnLang];
+  $('#learnGrid').innerHTML = BASE[learnLang].map(n => {
+    const it = compose(learnLang, n);
+    return `<button class="ncard ${learnLang}" data-n="${n}"><div class="num">${fmt(n)}</div><div class="w cjk">${it.w}</div><div class="r">${it.r}</div><div class="ru">«${it.ru}»</div></button>`;
+  }).join('');
+}
+$('#learnGrid').addEventListener('click', e => {
+  const c = e.target.closest('.ncard'); if (!c) return;
+  speak(compose(learnLang, +c.dataset.n).w, learnLang, true);
+});
+function renderConv() {
+  const v = $('#convIn').value.trim();
+  const n = Math.floor(Number(v));
+  const out = $('#convOut');
+  if (v === '' || isNaN(n) || n < 0 || n > 99999) { out.innerHTML = '<p class="muted">Введи число от 0 до 99 999</p>'; return; }
+  out.innerHTML = Object.keys(LANGS).map(l => {
+    if (!valid(l, n)) return `<div class="crow"><span class="tag t-${l}">${LANGS[l].flag}</span><div class="grow muted">${l === 'kn' ? 'родные корейские бывают только 1–99' : '—'}</div></div>`;
+    const it = compose(l, n);
+    return `<div class="crow"><span class="tag t-${l}">${LANGS[l].flag} ${l === 'cn' ? '中' : l === 'ko' ? '한자어' : '고유어'}</span><div class="grow"><div class="cw cjk">${it.w}</div><div class="cr">${esc(it.r)} · «${esc(it.ru)}»</div></div><button class="say" data-l="${l}" data-w="${it.w}" aria-label="Произнести">🔊</button></div>`;
+  }).join('');
+}
+$('#convIn').addEventListener('input', renderConv);
+$('#convOut').addEventListener('click', e => { const b = e.target.closest('.say'); if (b) speak(b.dataset.w, b.dataset.l, true); });
+
+/* ================= QUIZ ================= */
+const Q = Object.assign({ set: 'cn', range: 'base', dir: 'mix' }, LS.get('quizCfg', {}));
+const ROUND = 10;
+let qs = null;
+function quizSetup() {
+  const box = $('#quizBox'); box.innerHTML = '';
+  const h = document.createElement('h2'); h.textContent = '🎯 Викторина — 10 вопросов'; box.appendChild(h);
+  const add = (t, el) => { const l = document.createElement('div'); l.className = 'lbl'; l.textContent = t; box.appendChild(l); box.appendChild(el); };
+  const save = () => LS.set('quizCfg', { set: Q.set, range: Q.range, dir: Q.dir });
+  add('Язык', chipGroup([['cn', '🇨🇳 Китайский'], ['ko', '🇰🇷 Сино'], ['kn', '🇰🇷 Родные'], ['all', '🎲 Всё вперемешку']], Q.set, k => { Q.set = k; save(); }));
+  add('Какие числа', chipGroup(Object.entries(RANGES).map(([k, v]) => [k, v.name]), Q.range, k => { Q.range = k; save(); }));
+  add('Как спрашивать', chipGroup([['n2w', '5 → 五'], ['w2n', '五 → 5'], ['mix', 'Вперемешку']], Q.dir, k => { Q.dir = k; save(); }));
+  const tg = document.createElement('div'); tg.className = 'toggles';
+  tg.append(toggleChip('💡 Подсказка-чтение', 'hints'), toggleChip('🔊 Озвучка', 'voice'), toggleChip('🎵 Звуки', 'sound'));
+  add('Настройки', tg);
+  const best = LS.get('best_' + Q.set + '_' + Q.range, null);
+  const b = document.createElement('button'); b.className = 'btn wide'; b.textContent = 'Поехали! 🚀';
+  b.onclick = () => startQuiz(null); box.appendChild(b);
+  const p = document.createElement('p'); p.className = 'muted'; p.style.cssText = 'text-align:center;margin:10px 0 0;font-size:14px';
+  p.textContent = 'Нажми «Поехали», рекорды сохраняются для каждой комбинации'; box.appendChild(p);
+}
+function startQuiz(queue) {
+  qs = { i: 0, score: 0, streak: 0, wrong: [], queue: queue ? shuffle(queue.slice()) : null, total: queue ? queue.length : ROUND };
+  quizNext();
+}
+function quizNext() {
+  if (qs.i >= qs.total) return quizEnd();
+  let lang, n, dir;
+  if (qs.queue) { ({ lang, n } = qs.queue[qs.i]); }
+  else {
+    lang = Q.set === 'all' ? pick(['cn', 'ko', 'kn']) : Q.set;
+    n = pickN(lang, Q.range);
+  }
+  dir = Q.dir === 'mix' ? pick(['n2w', 'w2n']) : Q.dir;
+  const range = qs.queue ? (n <= 10 ? 'base' : n <= 99 ? 'comp' : 'hard') : Q.range;
+  const it = compose(lang, n);
+  const opts = shuffle([n, ...distractors(lang, range, n, 3)]);
+  qs.cur = { it, dir };
+  const box = $('#quizBox');
+  const prompt = dir === 'n2w'
+    ? `<div class="big">${fmt(n)}</div><div class="q">Как это будет?</div><div class="hint"></div>`
+    : `<div class="big cjk">${it.w}</div><div class="q">Какое это число?</div><div class="hint">${S.hints ? esc(it.r) + ' · «' + esc(it.ru) + '»' : ''}</div>`;
+  box.innerHTML = `
+    <div class="qhead">${tagHTML(lang)}<span class="muted">Вопрос ${qs.i + 1}/${qs.total} · <span class="streak">${qs.streak >= 2 ? '🔥' + qs.streak : '✅ ' + qs.score}</span></span></div>
+    <div class="bar"><i style="width:${qs.i / qs.total * 100}%"></i></div>
+    <div class="prompt">${prompt}</div>
+    <div class="opts">${opts.map(o => {
+      if (dir === 'n2w') { const x = compose(lang, o); return `<button class="opt cjk" data-n="${o}">${x.w}${S.hints ? `<small>${esc(x.r)}</small>` : ''}</button>`; }
+      return `<button class="opt" data-n="${o}">${fmt(o)}</button>`;
+    }).join('')}</div>
+    <div class="fb" id="qfb"></div>
+    <div class="row" style="justify-content:space-between;margin-top:14px">
+      <button class="btn ghost" id="qQuit" style="font-size:14px;padding:9px 14px">✕ Выйти</button>
+      ${dir === 'w2n' ? `<button class="btn ghost" id="qSay" style="font-size:14px;padding:9px 14px">🔊 Послушать</button>` : ''}
+    </div>`;
+  box.querySelector('.opts').onclick = e => { const b = e.target.closest('.opt'); if (b && !b.disabled) quizAnswer(b); };
+  $('#qQuit').onclick = quizSetup;
+  if ($('#qSay')) $('#qSay').onclick = () => speak(it.w, lang, true);
+  if (dir === 'w2n') speak(it.w, lang);
+}
+function quizAnswer(b) {
+  const { it } = qs.cur;
+  const ok = +b.dataset.n === it.n;
+  document.querySelectorAll('#quizBox .opt').forEach(x => { x.disabled = true; if (+x.dataset.n === it.n) x.classList.add('ok'); });
+  if (!ok) b.classList.add('bad');
+  beep(ok);
+  speak(it.w, it.lang);
+  if (ok) { qs.score++; qs.streak++; addStar(); } else { qs.streak = 0; qs.wrong.push({ lang: it.lang, n: it.n }); }
+  const fb = $('#qfb');
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  const praise = qs.streak >= 3 ? `🔥 ${qs.streak} подряд!` : pick(['Верно! 🎉', 'Умница! ✨', 'Так держать! 💪', 'Отлично! 🌟']);
+  fb.innerHTML = `${ok ? '<b>' + praise + '</b><br>' : '<b>Не совсем 🙈</b><br>'}<span class="cjk">${it.w}</span> = <b>${fmt(it.n)}</b> · ${esc(it.r)} · «${esc(it.ru)}»`;
+  qs.i++;
+  if (ok) setTimeout(() => { if (qs && $('#qfb') === fb) quizNext(); }, 1300);
+  else {
+    const nb = document.createElement('button'); nb.className = 'btn wide'; nb.textContent = 'Дальше →';
+    nb.onclick = quizNext; fb.after(nb);
+  }
+}
+function quizEnd() {
+  const key = qs.queue ? null : 'best_' + Q.set + '_' + Q.range;
+  const best = key ? LS.get(key, 0) : 0;
+  const rec = key && qs.score > best;
+  if (rec) LS.set(key, qs.score);
+  const pct = qs.score / qs.total;
+  const face = pct === 1 ? '🏆' : pct >= .8 ? '🌟' : pct >= .5 ? '👍' : '💪';
+  const msg = pct === 1 ? 'Идеально! Ни одной ошибки!' : pct >= .8 ? 'Очень круто!' : pct >= .5 ? 'Хорошо, ещё чуть-чуть!' : 'Повтори в «Учить» и попробуй снова!';
+  const uniq = []; const seen = new Set();
+  for (const w of qs.wrong) { const k = w.lang + w.n; if (!seen.has(k)) { seen.add(k); uniq.push(w); } }
+  $('#quizBox').innerHTML = `<div class="result">
+    <div class="big">${face}</div>
+    <h2 style="margin-top:8px">${qs.score} из ${qs.total}</h2>
+    <p>${msg}${rec ? '<br><b>🎊 Новый рекорд!</b>' : key ? `<br><span class="muted">Рекорд: ${Math.max(best, qs.score)}/${ROUND}</span>` : ''}</p>
+    ${uniq.length ? `<div class="mist"><div class="lbl">Ошибки — запомни:</div>${uniq.map(w => { const it = compose(w.lang, w.n); return `<div><span class="tag t-${w.lang}">${LANGS[w.lang].flag}</span> <b>${fmt(w.n)}</b> = <span class="cjk" style="font-size:20px">${it.w}</span> <span class="muted">${esc(it.r)} · «${esc(it.ru)}»</span></div>`; }).join('')}</div>` : ''}
+    <div class="row" style="justify-content:center;margin-top:16px">
+      <button class="btn" id="qAgain">Ещё раз 🔁</button>
+      ${uniq.length ? '<button class="btn ghost" id="qWrong">Повторить ошибки</button>' : ''}
+      <button class="btn ghost" id="qMenu">Настройки</button>
+    </div></div>`;
+  $('#qAgain').onclick = () => startQuiz(null);
+  $('#qMenu').onclick = quizSetup;
+  if ($('#qWrong')) $('#qWrong').onclick = () => startQuiz(uniq.concat(uniq).slice(0, Math.max(uniq.length, 5)));
+}
+
+/* ================= WHO ================= */
+const WH = { mode: LS.get('whoMode', 'script'), score: 0, total: 0, streak: 0, best: LS.get('whoBest', 0) };
+function whoNext() {
+  const lang = pick(['cn', 'ko', 'kn']);
+  const r = Math.random();
+  const n = r < .55 ? (lang === 'kn' ? rnd(1, 10) : rnd(0, 10)) : r < .8 ? rnd(11, 99) : (lang === 'kn' ? pick([20,30,40,50,60,70,80,90]) : pick([100, 1000, 10000, rnd(100, 999)]));
+  const it = compose(lang, n);
+  WH.cur = it;
+  const box = $('#whoBox'); box.innerHTML = '';
+  const h = document.createElement('div'); h.className = 'qhead';
+  h.innerHTML = `<h2 style="margin:0">🕵️ Чьё это число?</h2><span class="muted">✅ ${WH.score}/${WH.total} · ${WH.streak >= 2 ? '🔥' + WH.streak : 'рекорд 🔥' + WH.best}</span>`;
+  box.appendChild(h);
+  box.appendChild(chipGroup([['script', 'Показывать иероглифы/хангыль'], ['reading', 'Только чтение (сложнее!)']], WH.mode, k => { WH.mode = k; LS.set('whoMode', k); whoNext(); }));
+  const p = document.createElement('div'); p.className = 'prompt';
+  p.innerHTML = WH.mode === 'script'
+    ? `<div class="big cjk">${it.w}</div><div class="q">Какой язык и система?</div>`
+    : `<div class="big" style="font-size:clamp(34px,11vw,60px)">${esc(it.r)}</div><div class="q">Какой язык и система? <span class="muted">(«${esc(it.ru)}»)</span></div>`;
+  box.appendChild(p);
+  const o = document.createElement('div'); o.className = 'who-opts';
+  o.innerHTML = ['cn', 'ko', 'kn'].map(l => `<button class="opt c-${l}" data-l="${l}">${LANGS[l].flag} ${LANGS[l].name}</button>`).join('');
+  box.appendChild(o);
+  const fb = document.createElement('div'); fb.className = 'fb'; box.appendChild(fb);
+  const say = document.createElement('div'); say.className = 'row'; say.style.marginTop = '14px';
+  say.innerHTML = `<button class="btn ghost" style="font-size:14px;padding:9px 14px">🔊 Послушать</button>`;
+  say.firstChild.onclick = () => speak(it.w, lang, true);
+  box.appendChild(say);
+  o.onclick = e => {
+    const b = e.target.closest('.opt'); if (!b || b.disabled) return;
+    const ok = b.dataset.l === lang;
+    o.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (x.dataset.l === lang) x.classList.add('ok'); });
+    if (!ok) b.classList.add('bad');
+    beep(ok); speak(it.w, lang);
+    WH.total++;
+    if (ok) { WH.score++; WH.streak++; addStar(); if (WH.streak > WH.best) { WH.best = WH.streak; LS.set('whoBest', WH.best); } } else WH.streak = 0;
+    fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+    fb.innerHTML = `<b>${ok ? 'Да! 🎉' : 'Нет 🙈'}</b> Это ${LANGS[lang].name.toLowerCase()}: <span class="cjk">${it.w}</span> = <b>${fmt(n)}</b> · ${esc(it.r)} · «${esc(it.ru)}»`;
+    const nb = document.createElement('button'); nb.className = 'btn wide'; nb.textContent = 'Следующее →'; nb.onclick = whoNext;
+    fb.after(nb);
+  };
+}
+
+/* ================= PAIRS ================= */
+const PR = Object.assign({ lang: 'cn', range: 'base' }, LS.get('pairsCfg', {}));
+let pst = null;
+function pairsStart() {
+  if (pst && pst.timer) clearInterval(pst.timer);
+  const box = $('#pairsBox'); box.innerHTML = '';
+  const h = document.createElement('h2'); h.textContent = '🧩 Найди пары: число ↔ слово'; box.appendChild(h);
+  const save = () => LS.set('pairsCfg', { lang: PR.lang, range: PR.range });
+  box.appendChild(chipGroup([['cn', '🇨🇳 Китайский'], ['ko', '🇰🇷 Сино'], ['kn', '🇰🇷 Родные']], PR.lang, k => { PR.lang = k; save(); pairsStart(); }));
+  const g2 = chipGroup([['base', 'Основа'], ['comp', '11–99'], ['hard', 'Большие']], PR.range, k => { PR.range = k; save(); pairsStart(); });
+  g2.style.marginTop = '8px'; box.appendChild(g2);
+  const nums = new Set();
+  if (PR.range === 'base') shuffle(BASE[PR.lang].slice()).slice(0, 6).forEach(n => nums.add(n));
+  else { let g = 0; while (nums.size < 6 && g++ < 300) nums.add(pickN(PR.lang, PR.range)); }
+  const tiles = shuffle([...nums].flatMap(n => [{ n, k: 'num' }, { n, k: 'w' }]));
+  const stat = document.createElement('div'); stat.className = 'row muted'; stat.style.cssText = 'justify-content:space-between;margin-top:14px';
+  stat.innerHTML = `<span>⏱ <span class="stat" id="pTime">0</span> с</span><span>❌ ошибок: <span class="stat" id="pErr">0</span></span><span>🏅 рекорд: <span class="stat">${LS.get('pbest_' + PR.lang + '_' + PR.range, '—')}</span></span>`;
+  box.appendChild(stat);
+  const grid = document.createElement('div'); grid.className = 'pgrid';
+  grid.innerHTML = tiles.map(t => t.k === 'num'
+    ? `<button class="tile" data-n="${t.n}" data-k="num">${fmt(t.n)}</button>`
+    : `<button class="tile cjk" data-n="${t.n}" data-k="w" style="${compose(PR.lang, t.n).w.length > 3 ? 'font-size:clamp(14px,4.2vw,22px)' : ''}">${compose(PR.lang, t.n).w}</button>`).join('');
+  box.appendChild(grid);
+  pst = { sel: null, err: 0, left: 6, t0: Date.now(), timer: setInterval(() => { const el = $('#pTime'); if (el) el.textContent = Math.floor((Date.now() - pst.t0) / 1000); }, 500) };
+  grid.onclick = e => {
+    const t = e.target.closest('.tile'); if (!t || t.classList.contains('done')) return;
+    if (t.dataset.k === 'w') speak(t.textContent, PR.lang);
+    if (!pst.sel) { pst.sel = t; t.classList.add('sel'); return; }
+    if (pst.sel === t) { t.classList.remove('sel'); pst.sel = null; return; }
+    const a = pst.sel; pst.sel = null; a.classList.remove('sel');
+    if (a.dataset.k === t.dataset.k) { pst.sel = t; t.classList.add('sel'); return; }
+    if (a.dataset.n === t.dataset.n) {
+      a.classList.add('done'); t.classList.add('done'); beep(true); addStar();
+      if (--pst.left === 0) pairsWin();
+    } else {
+      beep(false); pst.err++; $('#pErr').textContent = pst.err;
+      [a, t].forEach(x => { x.classList.add('bad'); setTimeout(() => x.classList.remove('bad'), 450); });
+    }
+  };
+}
+function pairsWin() {
+  clearInterval(pst.timer);
+  const sec = Math.round((Date.now() - pst.t0) / 1000);
+  const key = 'pbest_' + PR.lang + '_' + PR.range;
+  const best = LS.get(key, null);
+  const rec = best == null || sec < best;
+  if (rec && pst.err === 0) LS.set(key, sec);
+  const box = $('#pairsBox');
+  const r = document.createElement('div'); r.className = 'fb show ok'; r.style.textAlign = 'center';
+  r.innerHTML = `<b>${pst.err === 0 ? '🏆 Без ошибок!' : '🎉 Готово!'}</b> ${sec} с, ошибок: ${pst.err}${rec && pst.err === 0 ? ' · новый рекорд!' : ''}${pst.err ? '<br><span style="font-size:14px">Рекорд засчитывается только без ошибок 😉</span>' : ''}`;
+  const nb = document.createElement('button'); nb.className = 'btn wide'; nb.textContent = 'Ещё раунд 🔁'; nb.onclick = pairsStart;
+  box.append(r, nb);
+}
+
+/* ================= init ================= */
+renderLearn(); renderConv(); quizSetup(); whoNext(); pairsStart();
+const lastTab = LS.get('tab', 'learn');
+const tb = document.querySelector(`#nav button[data-p="${lastTab}"]`); if (tb) tb.click();
+</script>
+</body>
+</html>
